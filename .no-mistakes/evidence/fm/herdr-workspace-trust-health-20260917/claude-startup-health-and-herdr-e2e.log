@@ -1,0 +1,36 @@
+FM_TEST_BEGIN 2026-09-19T16:26:07Z tests/fm-claude-startup-health.test.sh family=unclassified expected_gate_skip=none
+ok - fm-spawn: an ordinary claude pane passes the startup health gate
+ok - fm-spawn: a stuck workspace-trust dialog fails the spawn and closes the endpoint
+ok - fm-spawn: a stuck external-imports dialog fails the spawn and closes the endpoint
+ok - fm-spawn: an expired-credential pane fails the spawn and closes the endpoint
+ok - fm-spawn: the claude startup health gate stays bounded instead of waiting indefinitely
+# all fm-claude-startup-health tests passed
+FM_TEST_END 2026-09-19T16:26:25Z tests/fm-claude-startup-health.test.sh exit=0 duration_ms=17504 gate_skip=false
+FM_TEST_BEGIN 2026-09-19T16:26:25Z tests/fm-herdr-home-binding.test.sh family=unclassified expected_gate_skip=none
+pass: primary direct spawn is bound to the exact primary workspace
+pass: direct surveilo SecondMate spawn uses its own exact workspace
+pass: direct ai-web-training SecondMate spawn uses its own exact workspace
+pass: persistent SecondMate provisioning persists exact workspace identity
+pass: missing/stale/contradictory ownership refuses safely
+pass: ordinary placement creates only a tab in the exact owner workspace
+all Herdr home-binding tests passed
+FM_TEST_END 2026-09-19T16:26:25Z tests/fm-herdr-home-binding.test.sh exit=0 duration_ms=492 gate_skip=false
+FM_TEST_BEGIN 2026-09-19T16:26:25Z tests/fm-backend-herdr-launcher-workspace-e2e.test.sh family=real-herdr-gated expected_gate_skip=herdr
+ok - real herdr E2E: with one 'firstmate' workspace and no herdr parent, a crewmate still lands in this home's own workspace without stealing focus
+ok - real herdr E2E: the normal unique-label path is unchanged when the launcher's own pane identifies the workspace
+ok - real herdr E2E: presentation preference does not create a disposable workspace; the worker remains a tab in the launcher's exact persistent workspace
+ok - real herdr E2E: a launcher workspace that contradicts the stable home binding refuses without creating a worker
+ok - real herdr E2E: presentation preference cannot bypass stable-home contradiction validation
+ok - real herdr E2E: a bound home spawn without a launcher pane uses its exact stable workspace and ignores duplicate labels
+ok - real herdr E2E: a launcher pane that no longer exists refuses before any worker endpoint exists
+ok - real herdr E2E: a secondmate launching its own worker gets the same exact-workspace guarantee, and its same-labeled sibling is untouched
+ok - real herdr E2E: a --secondmate launch still stands up that secondmate's own workspace instead of inheriting the launcher's
+ok - real herdr E2E: teardown closes only the bound worker's own pane and leaves the launcher, its workspace, and the same-labeled sibling intact
+ok - real herdr E2E: isolated lab session removed and default fleet session unchanged
+FM_TEST_END 2026-09-19T16:27:16Z tests/fm-backend-herdr-launcher-workspace-e2e.test.sh exit=0 duration_ms=50279 gate_skip=false
+FM_TEST_SUMMARY total=3 failed=0 skipped_gate=0 duration_ms=68505
+FM_TEST_SUMMARY_FAMILY family=real-herdr-gated count=1 duration_ms=50279 failed=0
+FM_TEST_SUMMARY_FAMILY family=unclassified count=2 duration_ms=17996 failed=0
+FM_TEST_SLOWEST rank=1 script=tests/fm-backend-herdr-launcher-workspace-e2e.test.sh duration_ms=50279
+FM_TEST_SLOWEST rank=2 script=tests/fm-claude-startup-health.test.sh duration_ms=17504
+FM_TEST_SLOWEST rank=3 script=tests/fm-herdr-home-binding.test.sh duration_ms=492
